@@ -20,12 +20,12 @@ pipeline {
                 }
             }
         }
-    }
         stage('Archive JAR') {
             steps {
                 archiveArtifacts artifacts: 'spring-boot-app/target/*.jar', fingerprint: true
             }
         }
+    }
     post {
         success {
             echo 'Build completed successfully.'
