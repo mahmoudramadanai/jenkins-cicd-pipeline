@@ -1,15 +1,11 @@
 pipeline {
-
     agent any
-
     stages {
-
         stage('Checkout') {
             steps {
                 echo 'Checkout Stage'
             }
         }
-
         stage('Build') {
             steps {
                 dir('spring-boot-app') {
@@ -17,17 +13,20 @@ pipeline {
                 }
             }
         }
-
+        stage('Test') {
+            steps {
+                dir('spring-boot-app') {
+                    sh 'mvn test'
+                }
+            }
+        }
     }
-
     post {
         success {
             echo 'Build completed successfully.'
         }
-
         failure {
             echo 'Build failed.'
         }
     }
-
 }
