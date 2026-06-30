@@ -25,6 +25,15 @@ pipeline {
                 archiveArtifacts artifacts: 'spring-boot-app/target/*.jar', fingerprint: true
             }
         }
+        stage('SonarQube Analysis') {
+            steps {
+                dir('spring-boot-app') {
+                    withSonarQubeEnv('SonarQube') {
+                        sh 'mvn sonar:sonar'
+                    }
+                }
+            }
+        }
     }
     post {
         success {
